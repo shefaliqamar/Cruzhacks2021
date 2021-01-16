@@ -23,8 +23,8 @@ def save_entry(vaccine_type, location, age, gender, ethnicity, symptoms):
     else:
         print(loader.read())
 
-def display_form():
-    st.title('Form Page')
+def display_form(form_type):
+    st.title('Please fill out all the information')
 
     # widgets
     vaccine_type = st.selectbox('Which Vaccine were you given?', ('', 'Moderna', 'Pfizer/BioNTech'))
@@ -32,7 +32,8 @@ def display_form():
     age = st.number_input("Age", min_value=0, step=1)
     gender = st.selectbox('Gender:', ('', 'Female', 'Male', 'Non Binary', 'Other'))
     ethnicity = st.multiselect('Ethnicity: ', ['American Indian or Alaska Native',  'White', 'South Asian', 'East Asian', 'Black or African American', 'Hispanic or Latino', 'Native Hawaiian or Other Pacific Islander', 'Other'])
-    symptoms = st.multiselect("What side effects did you experience?", ['Soreness', 'Swelling', 'Pain at injection site', 'Headache', 'Fever', 'Nausea', 'Fatigue', 'Chills', 'Allergic Reaction', ' Fainting/Passing out', 'Lightdeadedness', 'None', 'Other'])
+    if form_type == 'data':
+        symptoms = st.multiselect("What side effects did you experience?", ['Soreness', 'Swelling', 'Pain at injection site', 'Headache', 'Fever', 'Nausea', 'Fatigue', 'Chills', 'Allergic Reaction', ' Fainting/Passing out', 'Lightdeadedness', 'None', 'Other'])
     submit_button = st.button('Submit')
 
     # actions

@@ -34,7 +34,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-option = st.sidebar.selectbox(label="Select a page", options=['Statistics', 'Form'])
+option = st.sidebar.selectbox(label="Select a page", options=['Statistics', 'Data Form', 'Prediction Form'])
 breakdown = st.sidebar.selectbox(label="Select Breakdown", options=['Age', 'Ethnicity', 'Gender'])
 
 st.title(option)
@@ -49,8 +49,11 @@ if option == 'Statistics':
     get_bar(data, breakdown)
     get_map(data)
 
-if option == 'Form':
-    display_form()
+if option == 'Data Form':
+    display_form('data')
+
+if option == 'Prediction Form':
+    display_form('perdiction')
 
 
 # Streamlit widgets automatically run the script from top to bottom. Since
