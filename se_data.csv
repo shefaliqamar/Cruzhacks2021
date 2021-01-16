@@ -1,9 +1,10 @@
-Vaccine,Location,Age,Gender,Ethnicity,Side_effects
-Moderna,"Mountain View, CA, USA ",20,Female,South Asian,"Soreness, Swelling, Pain at injection site"
-Moderna,"Santa Clara, CA, United States",20,Female,South Asian,"Soreness, Pain at injection site, Headache, Fever, Chills"
-Pfizer / BioNTech,"Fremont, California, USA",20,Female,South Asian,"Soreness, Pain at injection site, Headache, Fever, Chills"
-Pfizer / BioNTech,"Pittsburg, CA, USA",20,Female,East Asian,"Soreness, Swelling, Pain at injection site, Fatigue"
-Moderna,san jose,40,Male,South Asian,"Soreness, Pain at injection site, Headache, Fever, Chills, myalgia, bad muscle pain"
-Moderna,Fremont,49,Male,South Asian,Pain at injection site
-Pfizer / BioNTech,Menlo park ca,31,Female,India,"Soreness, Pain at injection site, Headache, Fever, Fatigue, Chills, Lightheadedness"
-Moderna,"Pleasanton, California, US",45,Male,White,Pain at injection site
+Vaccine,Location,Age,Gender,Ethnicity,Side_effects,Soreness,Swelling,Inj_Pain,Headache,Chills,Fever,Fatigue,Lightheadedness,Muscle_pain
+Moderna,"Mountain View, CA, USA ",20,Female,South Asian,"Soreness, Swelling, Pain at injection site",1,1,1,0,0,0,0,0,0
+Moderna,"Santa Clara, CA, United States",20,Female,South Asian,"Soreness, Pain at injection site, Headache, Fever, Chills",1,0,1,1,1,1,0,0,0
+Pfizer / BioNTech,"Fremont, California, USA",20,Female,South Asian,"Soreness, Pain at injection site, Headache, Fever, Chills",1,0,1,1,1,0,0,0,0
+Pfizer / BioNTech,"Pittsburg, CA, USA",20,Female,East Asian,"Soreness, Swelling, Pain at injection site, Fatigue",1,1,1,0,0,0,1,0,0
+Moderna,"san jose, CA, USA",40,Male,South Asian,"Soreness, Pain at injection site, Headache, Fever, Chills, myalgia, bad muscle pain",1,0,1,1,1,1,0,0,1
+Moderna,"Fremont, California, USA",49,Male,South Asian,Pain at injection site,0,0,1,0,0,0,0,0,0
+Pfizer / BioNTech,Menlo park ca,31,Female,South Asian,"Soreness, Pain at injection site, Headache, Fever, Fatigue, Chills, Lightheadedness",1,0,1,1,1,1,1,1,0
+Moderna,"Pleasanton, California, US",45,Male,White,Pain at injection site,0,0,1,0,0,0,0,0,0
+Pfizer / BioNTech,Canada,35,Female,Black or African American,Soreness,1,0,0,0,0,0,0,0,0
