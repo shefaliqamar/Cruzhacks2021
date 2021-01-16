@@ -20,6 +20,20 @@ def load_database():
     else:
         print(loader.read())
 
+
+st.markdown(
+    """
+    <style>
+    .css-1aumxhk {
+    background-color: #011839;
+    background-image: linear-gradient(#2e7bcf,#A52A2A);
+    color: #ffffff
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 option = st.sidebar.selectbox(label="Select a page", options=['Statistics', 'Form'])
 breakdown = st.sidebar.selectbox(label="Select Breakdown", options=['Age', 'Ethnicity', 'Gender'])
 
