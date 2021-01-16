@@ -31,7 +31,7 @@ st.markdown(
     <style>
     .css-1aumxhk {
     background-color: #011839;
-    background-image: linear-gradient(#2e7bcf,#A52A2A);
+    background-image: linear-gradient(#94A1EF,#A6ECFA);
     color: #ffffff
     }
     </style>
