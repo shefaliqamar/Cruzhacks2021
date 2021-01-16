@@ -6,8 +6,6 @@ from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 import pydeck as pdk
 
-geolocator = Nominatim(user_agent="my_application")
-geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
 
 def get_map(lat, lon, df):
     midpoint = (np.average(lat), np.average(lon))
@@ -40,23 +38,3 @@ def get_map(lat, lon, df):
         ],
     ))
 
-class Statistics:
-    def __init__(self):   
-        data = pd.read_csv('se_data.csv')
-
-        # ======================================= MAP OF POINTS ===============================
-        vaccine_location = data[['Location']]
-        vaccine_location['location'] = vaccine_location['Location'].apply(geocode)
-        vaccine_location['point'] = vaccine_location['location'].apply(lambda loc: tuple(loc.point) if loc else None)
-
-        points = vaccine_location['point'].tolist()
-        lat = [lat for (lat, lon, _) in points]
-        lon = [lon for (lat, lon, _) in points]
-
-        d = {'lat':lat,'lon':lon}
-        df = pd.DataFrame(d)
-
-        # st.map(df)
-        get_map(lat, lon, df)
-
-stats = Statistics()
