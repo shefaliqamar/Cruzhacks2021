@@ -42,4 +42,3 @@ def display_form(form_type):
             st.warning('Some questions are unanswered')
         else:
             save_entry(vaccine_type, location, age, gender, ethnicity, symptoms)
-            display_form('data')
