@@ -32,7 +32,7 @@ def display_form():
     age = st.number_input("Age", min_value=0, step=1)
     gender = st.selectbox('Gender:', ('', 'Female', 'Male', 'Non Binary', 'Other'))
     ethnicity = st.multiselect('Ethnicity: ', ['American Indian or Alaska Native',  'White', 'South Asian', 'East Asian', 'Black or African American', 'Hispanic or Latino', 'Native Hawaiian or Other Pacific Islander', 'Other'])
-    symptoms = st.multiselect("What side effects did you experience?", ['Soreness', 'Swelling', 'Sore arm / Pain at injection site', 'Headache', 'Fever', 'Nausea', 'Fatigue', 'Chills', 'Allergic Reaction', ' Fainting/Passing out', 'Lightdeadedness', 'None', 'Other'])
+    symptoms = st.multiselect("What side effects did you experience?", ['Soreness', 'Swelling', 'Pain at injection site', 'Headache', 'Fever', 'Nausea', 'Fatigue', 'Chills', 'Allergic Reaction', ' Fainting/Passing out', 'Lightdeadedness', 'None', 'Other'])
     submit_button = st.button('Submit')
 
     # actions

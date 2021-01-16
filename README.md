@@ -8,3 +8,5 @@ To run streamlit:
 Dependencies:
 * `pip install geopy`
 * `pip install pydeck`
+* `pip install plotly`
+* `pip install firebase_admin`
