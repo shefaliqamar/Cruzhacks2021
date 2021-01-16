@@ -6,6 +6,7 @@ from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 import pydeck as pdk
 from Stats import get_map
+from Form import display_form
 
 geolocator = Nominatim(user_agent="my_application")
 geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
@@ -50,9 +51,14 @@ if option == 'Statistics':
     get_map(lat, lon, df)
     # ======================================= END STATS ===============================
 
+    # Streamlit widgets automatically run the script from top to bottom. Since
+    # this button is not connected to any other logic, it just causes a plain
+    # rerun.
+    st.button("Re-run")
+
+# ======================================= FORM ===============================
+if option == 'Form':
+    display_form()
 
 
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
+
