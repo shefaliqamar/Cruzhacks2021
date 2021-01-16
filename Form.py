@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import json
 from six.moves import urllib
+from Thanks import thanks
+
 
 def save_entry(vaccine_type, location, age, gender, ethnicity, symptoms):
 
@@ -27,8 +29,11 @@ def display_form(form_type):
     st.title('Please fill out all the information')
 
     # widgets
-    vaccine_type = st.selectbox('Which Vaccine were you given?', ('', 'Moderna', 'Pfizer/BioNTech'))
-    location = st.text_input("Location of Vaccine")
+    if form_type == 'data':
+        vaccine_type = st.selectbox('Which Vaccine were you given?', ('', 'Moderna', 'Pfizer/BioNTech'))
+        location = st.text_input("Location of Vaccine")
+    if form_type == 'prediction':
+        location = st.text_input("City of Rescidence")
     age = st.number_input("Age", min_value=0, step=1)
     gender = st.selectbox('Gender:', ('', 'Female', 'Male', 'Non Binary', 'Other'))
     ethnicity = st.multiselect('Ethnicity: ', ['American Indian or Alaska Native',  'White', 'South Asian', 'East Asian', 'Black or African American', 'Hispanic or Latino', 'Native Hawaiian or Other Pacific Islander', 'Other'])
@@ -38,7 +43,9 @@ def display_form(form_type):
 
     # actions
     if submit_button:
-        if not vaccine_type or not location or not age or not gender or not ethnicity or not symptoms:
+        if not location or not age or not gender or not ethnicity or (form_type == 'data' and not symptoms) or (form_type == 'data' and not vaccine_type):
             st.warning('Some questions are unanswered')
         else:
-            save_entry(vaccine_type, location, age, gender, ethnicity, symptoms)
+            if form_type == 'data':
+                save_entry(vaccine_type, location, age, gender, ethnicity, symptoms)
+            

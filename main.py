@@ -53,15 +53,15 @@ st.title('Covid-19 Vaccine Side Effects')
 if option == 'Statistics':
     get_bar(data, breakdown)
     get_map(data)
+    # Streamlit widgets automatically run the script from top to bottom. Since
+    # this button is not connected to any other logic, it just causes a plain
+    # rerun.
+    st.button("Re-run")
 
 if option == 'Data Form':
     display_form('data')
 
 if option == 'Prediction Form':
-    display_form('perdiction')
+    display_form('prediction')
 
 
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
