@@ -1,5 +1,27 @@
 import streamlit as st
 import pandas as pd
+import json
+from six.moves import urllib
+
+def save_entry(vaccine_type, location, age, gender, ethnicity, symptoms):
+
+    my_data = dict()
+    my_data["vaccine type"] = vaccine_type
+    my_data["location"] = location
+    my_data["age"] = age
+    my_data["gender"] = gender
+    my_data["ethnicity"] = ethnicity
+    my_data["symptoms"] = symptoms
+
+    json_data = json.dumps(my_data).encode()
+
+    try:
+        loader = urllib.request.urlopen("https://cruzhacks2-default-rtdb.firebaseio.com/feedback.json", data=json_data)
+    except urllib.error.URLError as e:
+        message = json.loads(e.read())
+        print(message["error"])
+    else:
+        print(loader.read())
 
 def display_form():
     st.title('Form Page')
@@ -17,4 +39,5 @@ def display_form():
     if submit_button:
         if not vaccine_type or not location or not age or not gender or not ethnicity or not symptoms:
             st.warning('Some questions are unanswered')
-    
+        else:
+            save_entry(vaccine_type, location, age, gender, ethnicity, symptoms)
