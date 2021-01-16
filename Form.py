@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import json
 from six.moves import urllib
-from Thanks import thanks
 
 
 def save_entry(vaccine_type, location, age, gender, ethnicity, symptoms):
