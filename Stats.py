@@ -15,17 +15,28 @@ geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
 
 
 def get_bar(data, breakdown):
-    for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue']:
-        d = data[data[se] == 1][breakdown]
-        labels = d.sort_values().index 
-        counts = d.sort_values()
-        fig3 = px.pie(d, values=labels, names=counts)
-        fig3.update_layout(title=se)
-        st.plotly_chart(fig3)
-        if breakdown == 'Age':
+    if breakdown == 'Age':
+        for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue']:
+            col1, col2 = st.beta_columns(2)
+            d = data[data[se] == 1][breakdown]
+            labels = d.sort_values().index 
+            counts = d.sort_values()
+            fig3 = px.pie(d, values=labels, names=counts, width=300)
+            fig3.update_layout(title=se)
+            col1.plotly_chart(fig3)
             df_age = data[['Age', 'Headache']]
             result = df_age.groupby('Age').agg('mean')
-            st.line_chart(result)
+            
+            col2.line_chart(result, width=700)
+    else:
+        for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue']:
+            d = data[data[se] == 1][breakdown]
+            labels = d.sort_values().index 
+            counts = d.sort_values()
+            fig3 = px.pie(d, values=labels, names=counts)
+            fig3.update_layout(title=se)
+            st.plotly_chart(fig3)
+           
 
     
 
