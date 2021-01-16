@@ -1,0 +1,16 @@
+body {
+    color: #fff;
+    background-color: #CD5C5C;
+    /* background-image: url('covid.jpg'); */
+}
+
+.stButton>button {
+    color: #4F8BF9;
+    border-radius: 20%;
+    height: 4em;
+    width: 4em;
+}
+
+.stTextInput>div>div>input {
+    color: #4F8BF9;
+}
