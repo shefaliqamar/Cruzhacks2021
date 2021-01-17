@@ -28,9 +28,12 @@ def get_bar(data, breakdown):
             fig3.update_layout(title=se)
             col1.plotly_chart(fig3)
 
-            df_age = data[['age', 'Headache']]
+            df_age = data[['age', se]]
+            df_age = df_age.reset_index()
             result = df_age.groupby('age').agg('mean')
-            col3.line_chart(result, width=700, height=300)
+            col3.bar_chart(result)
+            # result = df_age.groupby('age').agg('mean')
+            # col3.line_chart(result, width=700, height=300)
     else:
         for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue']:
             if breakdown is 'Gender':
