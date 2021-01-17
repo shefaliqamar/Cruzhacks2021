@@ -16,23 +16,36 @@ geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
 
 def get_bar(data, breakdown):
     for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue']:
-        d = data[data[se] == 1][breakdown]
-        labels = d.sort_values().index 
+        list = []
+        d = []
+        print(data['symptoms'])
+        i = 0
+        for l in data['symptoms']:
+            print(l)
+            if l is not None and se in l:
+                d.append(data['age'][i])
+            i = i + 1
+        d = pd.Series(d)
+        labels = d.sort_values().index
         counts = d.sort_values()
         fig3 = px.pie(d, values=labels, names=counts)
         fig3.update_layout(title=se)
         st.plotly_chart(fig3)
         if breakdown == 'Age':
-            df_age = data[['Age', 'Headache']]
-            result = df_age.groupby('Age').agg('mean')
+            df_age = data[['age', 'symptoms']]
+            result = df_age.groupby('age').agg('mean')
             st.line_chart(result)
 
     
 
 def get_map(data):
     st.subheader("Where is our data from?")
-    vaccine_location = data[['Location']]
-    vaccine_location['location'] = vaccine_location['Location'].apply(geocode)
+    list = []
+    for key, value in data.items():
+        list.append((value[3]))
+    list_series = pd.Series(list)
+    vaccine_location = list_series
+    vaccine_location['location'] = list_series.apply(geocode)
     vaccine_location['point'] = vaccine_location['location'].apply(lambda loc: tuple(loc.point) if loc else None)
     points = vaccine_location['point'].tolist()
     lat = [lat for (lat, lon, _) in points]
