@@ -18,19 +18,32 @@ def get_bar(data, breakdown):
     if breakdown == 'Age':
         for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue']:
             col1, col2, col3 = st.beta_columns([1,1,3])
-            d = data[data[se] == 1][breakdown]
-            labels = d.sort_values().index 
+            d = data[data[se] == 1]['age']
+            d = d.reset_index()
+            d = d['age']
+
+            labels = d.sort_values().index
             counts = d.sort_values()
             fig3 = px.pie(d, values=labels, names=counts, width=300, height=300)
             fig3.update_layout(title=se)
             col1.plotly_chart(fig3)
-            df_age = data[['Age', 'Headache']]
-            result = df_age.groupby('Age').agg('mean')
-            col3.line_chart(result, width=700, height=300)
+
+            df_age = data[['age', se]]
+            df_age = df_age.reset_index()
+            result = df_age.groupby('age').agg('mean')
+            col3.bar_chart(result)
+            # result = df_age.groupby('age').agg('mean')
+            # col3.line_chart(result, width=700, height=300)
     else:
         for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue']:
+            if breakdown is 'Gender':
+                breakdown = 'gender'
+
             d = data[data[se] == 1][breakdown]
-            labels = d.sort_values().index 
+            d = d.reset_index()
+            d = d[breakdown]
+
+            labels = d.sort_values().index
             counts = d.sort_values()
             fig3 = px.pie(d, values=labels, names=counts)
             fig3.update_layout(title=se)
@@ -41,9 +54,9 @@ def get_bar(data, breakdown):
 
 def get_map(data):
     st.subheader("Where is our data from?")
-    vaccine_location = data[['Location']]
-    vaccine_location['location'] = vaccine_location['Location'].apply(geocode)
-    vaccine_location['point'] = vaccine_location['location'].apply(lambda loc: tuple(loc.point) if loc else None)
+    vaccine_location = data[['location']]
+    vaccine_location['Location'] = vaccine_location['location'].apply(geocode)
+    vaccine_location['point'] = vaccine_location['Location'].apply(lambda loc: tuple(loc.point) if loc else None)
     points = vaccine_location['point'].tolist()
     lat = [lat for (lat, lon, _) in points]
     lon = [lon for (lat, lon, _) in points]
