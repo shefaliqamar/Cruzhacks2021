@@ -36,14 +36,18 @@ for key in side_effects.keys():
 data = data.reset_index()
 data.drop(columns=['index'], inplace=True)
 
+print("Data: ", data.head(5))
+
 X = data[['age', 'gender', 'Ethnicity']]
 print("\n")
 print(X)
+print(X['age'].max())
 print("\n")
 y = data['Headache']
 
 def one_hot_encoding(X, col):
     gen_dict = {gen:i for i,gen in enumerate(X[col].unique())} 
+    # print("DICT: ", gen_dict)
     def integer_encode_gen(gen):
         return gen_dict[gen]
     X[col] = X[col].apply(integer_encode_gen)
@@ -95,14 +99,13 @@ def save_model(X, se):
     
 def make_prediction(X, se):
     # load json and create model
-    json_file = open('Headache_model.json', 'r')
+    json_file = open(f'{se}_model.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
     # load weights into new model
-    loaded_model.load_weights("Headache_model.h5")
+    loaded_model.load_weights(f"{se}_model.h5")
     print("Loaded model from disk")
-    
     # evaluate loaded model on test data
     loaded_model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
     # score = loaded_model.evaluate(X, y, verbose=0)
@@ -111,6 +114,11 @@ def make_prediction(X, se):
     rounded = [round(x[0]) for x in predictions]
     return rounded 
 
+# for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue']:
+#     save_model(X, se)
 
-save_model(X, 'Headache')
-print(make_prediction(X, 'Headache'))
+# print(X.head(1))
+# print("Headache prediction: ", make_prediction(X.head(1), 'Headache'))
+
+# for se in ['Pain at injection site', 'Chills']:
+save_model(X, 'Chills')
