@@ -13,3 +13,5 @@ Dependencies:
 * `pip install pydeck`
 * `pip install plotly`
 * `pip install firebase_admin`
+* `pip install Keras`
+* `sudo pip install h5py`
