@@ -90,4 +90,3 @@ if option == 'Data Form':
 if option == 'Prediction Form':
     display_form('prediction')
 
-

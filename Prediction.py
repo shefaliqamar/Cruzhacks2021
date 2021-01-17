@@ -7,9 +7,39 @@ from keras.layers import Dense
 import pandas as pd
 import os
 
-data = pd.read_csv('se_data.csv')
+data = pd.read_json('https://cruzhacks2-default-rtdb.firebaseio.com/feedback.json')
+data = data.transpose()
 
-X = data[['Age', 'Gender', 'Ethnicity']]
+
+eth = [eth[0] for eth in data['ethnicity'].tolist()]
+d = {'Ethnicity':eth}
+df = pd.DataFrame(d)
+data.drop(columns=['ethnicity'], inplace=True)
+data['Ethnicity'] = pd.Series(df['Ethnicity'].to_numpy(), index=data.index)
+
+# parse out side-effects + encode
+ses = set([se for arr in data['symptoms'].tolist() for se in arr])
+side_effects = {}
+for se in ses:
+    side_effects[se] = []
+    for index, row in data.iterrows():
+        if se in row['symptoms']:
+            side_effects[se].append(1)
+        else:
+            side_effects[se].append(0)
+
+for key in side_effects.keys():
+    df = pd.DataFrame({key:side_effects[key]})
+    data[key] = pd.Series(df[key].to_numpy(), index=data.index)
+
+
+data = data.reset_index()
+data.drop(columns=['index'], inplace=True)
+
+X = data[['age', 'gender', 'Ethnicity']]
+print("\n")
+print(X)
+print("\n")
 y = data['Headache']
 
 def one_hot_encoding(X, col):
@@ -25,10 +55,15 @@ def normalization(data, col):
     data[col] = (data[col] - data[col].min()) / (data[col].max() - data[col].min())
     return data
 
-X = one_hot_encoding(X, 'Gender')
+X = one_hot_encoding(X, 'gender')
 X = one_hot_encoding(X, 'Ethnicity')
-X = normalization(X, 'Age')
-print(X.head())
+X = X.astype({'age': 'float32'})
+X = normalization(X, 'age')
+X.dropna(axis=0, how='any', inplace=True)
+print("\n")
+print(X)
+print(X.info())
+print("\n")
 
 def save_model(X, se):
     model = Sequential()
