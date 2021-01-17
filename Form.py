@@ -29,13 +29,16 @@ def display_form(form_type):
 
     # widgets
     if form_type == 'data':
-        vaccine_type = st.selectbox('Which Vaccine were you given?', ('', 'Moderna', 'Pfizer/BioNTech'))
-        location = st.text_input("Location of Vaccine")
-    age = st.number_input("Age", min_value=0, step=1)
-    gender = st.selectbox('Gender:', ('', 'Female', 'Male', 'Other'))
-    ethnicity = st.multiselect('Ethnicity: ', ['American Indian or Alaska Native',  'White', 'South Asian', 'East Asian', 'Black or African American', 'Hispanic or Latino', 'Native Hawaiian or Other Pacific Islander', 'Other'])
+        vaccine_type = st.selectbox('Which Vaccine were you given?', ('Moderna', 'Pfizer/BioNTech'))
+        location_input = st.empty()
+        location = location_input.text_input("Location of Vaccine")
+    age_input = st.empty()
+    age = age_input.number_input("Age", min_value=0, step=1)
+    gender = st.selectbox('Gender:', ('Female', 'Male', 'Other'))
+    ethnicity_input = st.empty
+    ethnicity = ethnicity_input.multiselect('Ethnicity: ', ['American Indian or Alaska Native',  'White', 'South Asian', 'East Asian', 'Black or African American', 'Hispanic or Latino', 'Native Hawaiian or Other Pacific Islander', 'Other'])
     if form_type == 'data':
-        symptoms = st.multiselect("What side effects did you experience?", ['Soreness', 'Swelling', 'Pain at injection site', 'Headache', 'Fever', 'Nausea', 'Fatigue', 'Chills', 'Allergic Reaction', ' Fainting/Passing out', 'Lightdeadedness', 'None', 'Other'])
+        symptoms = st.multiselect("What side effects did you experience?", ['Soreness', 'Swelling', 'Pain at injection site', 'Headache', 'Fever', 'Nausea', 'Fatigue', 'Chills', 'Allergic Reaction', ' Fainting/Passing out', 'Lightheadedness', 'None', 'Other'])
     submit_button = st.button('Submit')
 
     # actions
@@ -45,4 +48,8 @@ def display_form(form_type):
         else:
             if form_type == 'data':
                 save_entry(vaccine_type, location, age, gender, ethnicity, symptoms)
+            location_input.text_input("Location of Vaccine", value = " ") 
+            age_input.number_input("Age", value = 0)
+            thnicity_input.multiselect('Ethnicity: ', default = None)
+
             
