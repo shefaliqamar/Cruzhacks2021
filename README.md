@@ -1,5 +1,8 @@
 # Cruzhacks2021
 
+To run our app:
+`streamlit run main.py`
+
 To run streamlit:
 * `pip install streamlit`
 * `streamlit hello`
