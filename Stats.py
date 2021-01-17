@@ -54,46 +54,46 @@ def get_bar(data, breakdown):
 
 def get_map(data):
     st.subheader("Where is our data from?")
-    # vaccine_location = data[['location']]
-    # vaccine_location['Location'] = vaccine_location['location'].apply(geocode)
-    # vaccine_location['point'] = vaccine_location['Location'].apply(lambda loc: tuple(loc.point) if loc else None)
-    # points = vaccine_location['point'].tolist()
-    # points = [point for point in points if point is not None]
-    # lat = [lat for (lat, lon, _) in points]
-    # lon = [lon for (lat, lon, _) in points]
-    # d = {'lat':lat,'lon':lon}
-    # df = pd.DataFrame(d)
+    vaccine_location = data[['location']]
+    vaccine_location['Location'] = vaccine_location['location'].apply(geocode)
+    vaccine_location['point'] = vaccine_location['Location'].apply(lambda loc: tuple(loc.point) if loc else None)
+    points = vaccine_location['point'].tolist()
+    points = [point for point in points if point is not None]
+    lat = [lat for (lat, lon, _) in points]
+    lon = [lon for (lat, lon, _) in points]
+    d = {'lat':lat,'lon':lon}
+    df = pd.DataFrame(d)
     # st.map(df)
-    # lat = [l for l in set(lat)]
-    # lon = [l for l in set(lon)]
+    lat = [l for l in set(lat)]
+    lon = [l for l in set(lon)]
 
-    # midpoint = (np.average(lat), np.average(lon))
-    # st.pydeck_chart(pdk.Deck(
-    #     map_style='mapbox://styles/mapbox/light-v9',
-    #     initial_view_state=pdk.ViewState(
-    #         latitude=midpoint[0],
-    #         longitude=midpoint[1],
-    #         zoom=3,
-    #         pitch=50,
-    #     ),
-    #     layers=[
-    #         pdk.Layer(
-    #             'HexagonLayer',
-    #             data=df,
-    #             get_position='[lon, lat]',
-    #             radius=100000,
-    #             elevation_scale=40,
-    #             elevation_range=[0, 2000],
-    #             pickable=True,
-    #             extruded=True,
-    #         ),
-    #         pdk.Layer(
-    #             'ScatterplotLayer',
-    #             data=df,
-    #             get_position='[lon, lat]',
-    #             get_color='[200, 30, 0, 160]',
-    #             get_radius=2000,
-    #         ),
-    #     ],
-    # ))
+    midpoint = (np.average(lat), np.average(lon))
+    st.pydeck_chart(pdk.Deck(
+        map_style='mapbox://styles/mapbox/light-v9',
+        initial_view_state=pdk.ViewState(
+            latitude=midpoint[0],
+            longitude=midpoint[1],
+            zoom=3,
+            pitch=50,
+        ),
+        layers=[
+            pdk.Layer(
+                'HexagonLayer',
+                data=df,
+                get_position='[lon, lat]',
+                radius=100000,
+                elevation_scale=40,
+                elevation_range=[0, 2000],
+                pickable=True,
+                extruded=True,
+            ),
+            pdk.Layer(
+                'ScatterplotLayer',
+                data=df,
+                get_position='[lon, lat]',
+                get_color='[200, 30, 0, 160]',
+                get_radius=2000,
+            ),
+        ],
+    ))
 

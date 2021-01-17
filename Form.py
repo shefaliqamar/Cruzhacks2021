@@ -73,11 +73,9 @@ def display_form(form_type):
                         'Ethnicity_4':Ethnicity_4,'Ethnicity_5':Ethnicity_5,
                         'Ethnicity_6':Ethnicity_6}
                 df = pd.DataFrame(d, index=[0])
-                st.write(df)
 
                 for se in ['Headache', 'Soreness', 'Swelling', 'Fever', 'Fatigue', 'Chills']:
                     pred = make_prediction(df, se)[0]
-                    st.write(pred)
                     if pred == 1:
-                        st.write("Likely to have: ", se)
-                    
+                        st.markdown(f"## You are **likely** to have: {se}")
+                st.markdown(f"## You are **likely** to have: Pain at injection site")
